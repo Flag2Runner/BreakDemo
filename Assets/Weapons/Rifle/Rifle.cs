@@ -13,12 +13,12 @@ public class Rifle : Weapon
 
     public override void Attack()
     {
-        GameObject target = _aimingComponent.GetAimTarget(Owner.transform);
+        /*GameObject target = _aimingComponent.GetAimTarget(Owner.transform);
         if (target)
         {
             HealthComponent targetHealthComponent = target.GetComponent<HealthComponent>();
             targetHealthComponent?.ChangeHealth(-damage);
-        }
+        }*/
     }
     
 }
