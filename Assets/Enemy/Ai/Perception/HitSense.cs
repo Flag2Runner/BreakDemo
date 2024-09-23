@@ -1,4 +1,4 @@
-GIT using UnityEngine;
+using UnityEngine;
 
 public class HitSense : Sense
 {
