@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: de4ceac8c3d3e4e4b89e600e2d4c9f62
+guid: 9272d86b51af1ae4cb9d96c8ea2b3275
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
   externalObjects: {}
   materials:
-    materialImportMode: 0
+    materialImportMode: 2
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -31,20 +31,20 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Firing Rifle
+      name: Firing Weapon
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
       lastFrame: 15
       wrapMode: 0
-      orientationOffsetY: 7.64
+      orientationOffsetY: 2.12
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 1
       loopBlend: 0
-      loopBlendOrientation: 1
+      loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
       keepOriginalOrientation: 1
@@ -55,7 +55,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.22477591
+      - time: 0.23478264
         functionName: AttackPoint
         data: 
         objectReferenceParameter: {instanceID: 0}

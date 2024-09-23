@@ -5,10 +5,9 @@ public class WidgetComponent : MonoBehaviour
 {
     [SerializeField] private Widget widgetPrefab;
     [SerializeField] private Transform attachTransform;
-
-    private Widget _widget;
     private Camera _mainCamera;
 
+    private Widget _widget;
     private void Start()
     {
         _widget = Instantiate(widgetPrefab);
@@ -26,9 +25,8 @@ public class WidgetComponent : MonoBehaviour
     private void Update()
     {
         if (_widget)
-        { 
+        {
             _widget.transform.position = _mainCamera.WorldToScreenPoint(attachTransform.position);
         }
-
     }
 }

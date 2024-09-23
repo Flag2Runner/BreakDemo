@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 99e466c145e4dbb408a307042425c737
+guid: 68fd277d0726e9146a5f4e40ece9fbc5
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
   externalObjects: {}
   materials:
-    materialImportMode: 0
+    materialImportMode: 2
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -35,9 +35,9 @@ ModelImporter:
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
-      lastFrame: 65
+      lastFrame: 60
       wrapMode: 0
-      orientationOffsetY: 36.9
+      orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
@@ -55,7 +55,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.8223318
+      - time: 0.81468105
         functionName: WeaponSwitchPoint
         data: 
         objectReferenceParameter: {instanceID: 0}

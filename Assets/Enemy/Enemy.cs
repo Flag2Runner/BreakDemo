@@ -3,12 +3,12 @@ using UnityEngine;
 
 [RequireComponent(typeof(HealthComponent))]
 [RequireComponent(typeof(Animator))]
-
 public class Enemy : MonoBehaviour
 {
     private HealthComponent _healthComponent;
     private Animator _animator;
-    private static readonly int DeadID = Animator.StringToHash("Dead");
+    private static readonly int DeadId = Animator.StringToHash("Dead");
+
     private void Awake()
     {
         _healthComponent = GetComponent<HealthComponent>();
@@ -19,14 +19,13 @@ public class Enemy : MonoBehaviour
 
     private void StartDeath()
     {
-        _animator.SetTrigger(DeadID);
+        _animator.SetTrigger(DeadId);
     }
 
-    public void DeathAnimationFInished()
+    public void DeathAnimationFinished()
     {
-        Destroy(gameObject);
+       Destroy(gameObject); 
     }
-
     private void TookDamage(float newHealth, float delta, float maxHealth)
     {
         Debug.Log($"I took {delta} amt of damage, health is now {newHealth}/{maxHealth}");

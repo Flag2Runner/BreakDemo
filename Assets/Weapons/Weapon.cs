@@ -3,31 +3,34 @@ using UnityEngine;
 public abstract class Weapon : MonoBehaviour, ISocketInterface
 {
     [SerializeField] string attachSocketName;
-    [SerializeField] private AnimatorOverrideController overrideController;
+    [SerializeField] AnimatorOverrideController overrideController;
+    [SerializeField] private float attackAnimSpeedMulti = 1f;
+    private static readonly int AttackMulti = Animator.StringToHash("AttackMulti");
+
     public GameObject Owner
     {
-        get; 
+        get;
         private set;
     }
-
     public void Init(GameObject owner)
     {
-        Owner = owner;
+        Owner = owner; 
         SocketManager socketManager = owner.GetComponent<SocketManager>();
-        if (socketManager)
+        if(socketManager)
         {
             socketManager.FindAndAttachToSocket(this);
         }
-        UnEquip();
+        UnEquip(); 
     }
 
     public void Equip()
     {
         gameObject.SetActive(true);
         Animator ownerAnimator = Owner.GetComponent<Animator>();
-        if (ownerAnimator && overrideController)
+        if(ownerAnimator && overrideController)
         {
             ownerAnimator.runtimeAnimatorController = overrideController;
+            ownerAnimator.SetFloat(AttackMulti, attackAnimSpeedMulti);
         }
     }
 
@@ -45,6 +48,8 @@ public abstract class Weapon : MonoBehaviour, ISocketInterface
     {
         return gameObject;
     }
-
+    
     public abstract void Attack();
+    
 }
+

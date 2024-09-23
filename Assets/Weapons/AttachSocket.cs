@@ -1,6 +1,5 @@
 using UnityEngine;
 
-
 public interface ISocketInterface
 {
     string GetSocketName();
@@ -9,8 +8,8 @@ public interface ISocketInterface
 
 public class AttachSocket : MonoBehaviour
 {
-    [SerializeField] private string SocketName;
-
+    [SerializeField] string SocketName;
+    
     public bool IsForSocket(ISocketInterface socketInterface)
     {
         return SocketName == socketInterface.GetSocketName();

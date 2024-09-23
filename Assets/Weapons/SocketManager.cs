@@ -5,16 +5,16 @@ using UnityEngine;
 public class SocketManager : MonoBehaviour
 {
     List<AttachSocket> _attachSockets;
-    
+
     //returns false if can't find the socket
-    public bool FindAndAttachToSocket(ISocketInterface socketInterface)
+    public bool FindAndAttachToSocket(ISocketInterface socketInteface)
     {
-        InitSockets();
+        InitSockets(); 
         foreach (AttachSocket socket in _attachSockets)
         {
-            if (socket.IsForSocket(socketInterface))
+            if(socket.IsForSocket(socketInteface))
             {
-                socket.Attach(socketInterface);
+                socket.Attach(socketInteface);
                 return true;
             }
         }
@@ -26,6 +26,7 @@ public class SocketManager : MonoBehaviour
     {
         if (_attachSockets != null)
             return;
+
         _attachSockets = new List<AttachSocket>();
         AttachSocket[] attachSockets = GetComponentsInChildren<AttachSocket>();
         _attachSockets.AddRange(attachSockets);

@@ -9,6 +9,7 @@ public class ValueGauge : Widget
     {
         if (newMaxValue == 0)
             return;
+
         slider.value = newValue / newMaxValue;
     }
 }

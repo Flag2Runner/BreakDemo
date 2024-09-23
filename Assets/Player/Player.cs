@@ -1,5 +1,4 @@
 using System;
-using Unity.Mathematics;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
@@ -9,80 +8,72 @@ using UnityEngine;
 [RequireComponent(typeof(HealthComponent))]
 public class Player : MonoBehaviour
 {
-    [SerializeField] private GamePlayWidget gameplayWidgetPrefab;
-    [SerializeField] private float speed = 10;
+    [SerializeField] private GameplayWidget gameplayWidgetPrefab;
+    [SerializeField] private float speed = 10f;
     [SerializeField] private float bodyTurnSpeed = 10f;
     [SerializeField] private ViewCamera viewCameraPrefab;
     [SerializeField] private float animTurnLerpScale = 5f;
+    private GameplayWidget _gameplayWidget;
     
-    private GamePlayWidget _gamePlayWidget;
     private CharacterController _characterController;
     private ViewCamera _viewCamera;
-    private InventoryComponent _inventory;
-    
+    private InventoryComponent _inventoryComponent;
+     
     private Animator _animator;
     private float _animTurnSpeed;
     private Vector2 _moveInput;
     private Vector2 _aimInput;
 
     private static readonly int animFwdId = Animator.StringToHash("ForwardAmt");
-    private static readonly int animRightrdId = Animator.StringToHash("RightAmt");
+    private static readonly int animRightId = Animator.StringToHash("RightAmt");
     private static readonly int animTurnId = Animator.StringToHash("TurnAmt");
-    private static readonly int switchWeaponId = Animator.StringToHash("SwitchWeapon");
-    private static readonly int FiringId = Animator.StringToHash("Firing");
-
+    private static readonly int SwitchWeaponId = Animator.StringToHash("SwitchWeapon");
+    private static readonly int fireId = Animator.StringToHash("Firing");
 
     private void Awake()
     {
         _characterController = GetComponent<CharacterController>();
         _animator = GetComponent<Animator>();
-        _inventory = GetComponent<InventoryComponent>();
-        _gamePlayWidget = Instantiate(gameplayWidgetPrefab);
-        _gamePlayWidget.MoveStick.OnInputUpdated += MoveInputUpdated;
-        _gamePlayWidget.AimStick.OnInputUpdated += AimInputUpdated;
-        _gamePlayWidget.AimStick.OnInputClicked += AimInputClicked;
-       // _gamePlayWidget.ViewStick.OnInputUpdated += ViewInputUpdated;
+        _inventoryComponent = GetComponent<InventoryComponent>();
+        _gameplayWidget = Instantiate(gameplayWidgetPrefab);
+        _gameplayWidget.MoveStick.OnInputUpdated += MoveInputUpdated;
+        _gameplayWidget.AimStick.OnInputUpdated += AimInputUpdated;
+        _gameplayWidget.AimStick.OnInputClicked += SwitchWeapon;
         _viewCamera = Instantiate(viewCameraPrefab);
         _viewCamera.SetFollowParent(transform);
     }
 
-    private void AimInputClicked()
+    private void SwitchWeapon()
     {
-        _animator.SetTrigger(switchWeaponId);
-    }
-
-    public void WeaponSwitchPoint()
-    {
-        _inventory.EquipNextWeapon(); 
+        _animator.SetTrigger(SwitchWeaponId);
     }
 
     public void AttackPoint()
     {
-        _inventory.FireCurrentActiveWeapon();
+        _inventoryComponent.FireCurrentActiveWeapon();
+    }
+    public void WeaponSwitchPoint()
+    {
+        _inventoryComponent.EquipNextWeapon();
+        
     }
 
     private void AimInputUpdated(Vector2 inputVal)
-    {
-
+    { 
         _aimInput = inputVal;
-        _animator.SetBool(FiringId, _aimInput != Vector2.zero);
+        _animator.SetBool(fireId, _aimInput != Vector2.zero); 
     }
+
     private void MoveInputUpdated(Vector2 inputVal)
     {
         _moveInput = inputVal;
-    }
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
     }
 
     // Update is called once per frame
     void Update()
     {
         Vector3 moveDir = _viewCamera.InputToWorldDir(_moveInput);
-        _characterController.Move(moveDir * (speed * Time.deltaTime));
+        _characterController.Move( moveDir * (speed * Time.deltaTime));
 
         Vector3 aimDir = _viewCamera.InputToWorldDir(_aimInput);
         if (aimDir == Vector3.zero)
@@ -97,17 +88,16 @@ public class Player : MonoBehaviour
             Vector3 prevDir = transform.forward;
             Quaternion goalRot = Quaternion.LookRotation(aimDir, Vector3.up);
             transform.rotation = Quaternion.Slerp(transform.rotation, goalRot, Time.deltaTime * bodyTurnSpeed);
-            angleDelta = Vector3.SignedAngle(transform.forward,prevDir, Vector3.up);
+            angleDelta = Vector3.SignedAngle(transform.forward, prevDir, Vector3.up);
         }
 
-        _animTurnSpeed = Mathf.Lerp(_animTurnSpeed, angleDelta / Time.deltaTime, Time.deltaTime * animTurnLerpScale);
+        _animTurnSpeed = Mathf.Lerp(_animTurnSpeed, angleDelta/Time.deltaTime, Time.deltaTime * animTurnLerpScale);
         _animator.SetFloat(animTurnId, _animTurnSpeed);
 
         float animFwdAmt = Vector3.Dot(moveDir, transform.forward);
         float animRightAmt = Vector3.Dot(moveDir, transform.right);
-        
-        _animator.SetFloat(animFwdId, animFwdAmt);
-        _animator.SetFloat(animRightrdId, animRightAmt);
 
+        _animator.SetFloat(animFwdId, animFwdAmt);
+        _animator.SetFloat(animRightId, animRightAmt);
     }
 }

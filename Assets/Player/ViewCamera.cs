@@ -1,11 +1,8 @@
 using System;
-using Unity.Mathematics;
 using UnityEngine;
 [ExecuteAlways]
-
 public class ViewCamera : MonoBehaviour
 {
-
     [SerializeField] private Transform pitchTransform;
     [SerializeField] private Camera viewCamera;
     [SerializeField] private float armLength = 7f;
@@ -16,14 +13,6 @@ public class ViewCamera : MonoBehaviour
     public Camera GetViewCamera()
     {
         return viewCamera;
-    }
-    
-    
-
-
-    public void SetFollowParent(Transform parentTransform)
-    {
-        _parentTransform = parentTransform;
     }
 
     Vector3 GetViewRightDir()
@@ -40,11 +29,15 @@ public class ViewCamera : MonoBehaviour
     {
         return GetViewRightDir() * input.x + GetViewUpDir() * input.y;
     }
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    
+    public void SetFollowParent(Transform parentTransform)
     {
-        
+        _parentTransform = parentTransform;
+    }
+
+    public void AddYawInput(float amt)
+    {
+        transform.Rotate(Vector3.up, amt * Time.deltaTime * cameraTurnSpeed);
     }
 
     // Update is called once per frame
@@ -59,10 +52,5 @@ public class ViewCamera : MonoBehaviour
             return;
         
         transform.position = _parentTransform.position;
-    }
-
-    public void AddYawInput(float amt)
-    {
-        transform.Rotate(Vector3.up, amt * Time.deltaTime * cameraTurnSpeed);
     }
 }
