@@ -13,13 +13,13 @@ public class HealthBar : ValueGauge
         }
     }
 
+    private void HealthChanged(float newHealth, float delta, float maxHealth, GameObject instigator)
+    {
+        UpdateValue(newHealth, maxHealth );
+    }
+
     private void OwnerDead()
     {
         Destroy(gameObject);
-    }
-
-    private void HealthChanged(float newHealth, float delta, float maxHealth)
-    {
-        UpdateValue(newHealth, maxHealth);
     }
 }

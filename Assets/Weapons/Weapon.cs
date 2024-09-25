@@ -4,9 +4,7 @@ public abstract class Weapon : MonoBehaviour, ISocketInterface
 {
     [SerializeField] string attachSocketName;
     [SerializeField] AnimatorOverrideController overrideController;
-    [SerializeField] private float attackAnimSpeedMulti = 1f;
-    private static readonly int AttackMulti = Animator.StringToHash("AttackMulti");
-
+    [SerializeField] private float attackAnimSpeedMult = 1f;
     public GameObject Owner
     {
         get;
@@ -30,8 +28,9 @@ public abstract class Weapon : MonoBehaviour, ISocketInterface
         if(ownerAnimator && overrideController)
         {
             ownerAnimator.runtimeAnimatorController = overrideController;
-            ownerAnimator.SetFloat(AttackMulti, attackAnimSpeedMulti);
+            ownerAnimator.SetFloat("AttackAnimMult", attackAnimSpeedMult);
         }
+        
     }
 
     public void UnEquip()
@@ -48,8 +47,7 @@ public abstract class Weapon : MonoBehaviour, ISocketInterface
     {
         return gameObject;
     }
-    
+
     public abstract void Attack();
-    
 }
 

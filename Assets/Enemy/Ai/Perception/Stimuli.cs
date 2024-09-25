@@ -1,15 +1,19 @@
-using System;
 using UnityEngine;
 
 public class Stimuli : MonoBehaviour
 {
-    private void Start()
+    void Start()
     {
-        Sense.RegisterStimuli(this);
+        Sense.RegisterStimuli(this);        
     }
 
     private void OnDestroy()
     {
         Sense.UnRegisterStimuli(this);
+    }
+
+    public void SendSoundEvent(float volume)
+    {
+        HearingSense.SendSoundEvent(volume, this);
     }
 }

@@ -14,8 +14,6 @@ GameObject:
   - component: {fileID: 1270683542643311310}
   - component: {fileID: 6145379234659306036}
   - component: {fileID: 1551466130262091100}
-  - component: {fileID: 7275140906507083626}
-  - component: {fileID: 7996023959680102798}
   m_Layer: 0
   m_Name: Chomper
   m_TagString: Untagged
@@ -124,35 +122,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &7275140906507083626
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6002617223673246343}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a86a2f3956776c4b955b884ce37eb57, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bDrawDebug: 1
-  sightRange: 5
-  sightPeripheralHalfAngle: 45
---- !u!114 &7996023959680102798
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6002617223673246343}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9127c950d2e95946a673ca27f8785aa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bDrawDebug: 1
-  awareRange: 3
 --- !u!1 &8910188923000649924
 GameObject:
   m_ObjectHideFlags: 0

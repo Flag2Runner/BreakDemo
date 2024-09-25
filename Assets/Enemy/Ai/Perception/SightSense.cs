@@ -6,15 +6,15 @@ public class SightSense : Sense
     [SerializeField] private float sightPeripheralHalfAngle = 45f;
     protected override bool IsStimuliSensible(Stimuli stimuli)
     {
-        if (!transform.InRangeof(stimuli.transform, sightRange))
+        if (!transform.InRangeOf(stimuli.transform, sightRange))
             return false;
 
         if (!transform.InAngleOf(stimuli.transform, sightPeripheralHalfAngle))
             return false;
-
+        
         if (transform.IsBlockedTo(stimuli.transform, Vector3.up, sightRange))
             return false;
-
+        
         return true;
     }
 
@@ -25,8 +25,7 @@ public class SightSense : Sense
         Vector3 lineLeft = Quaternion.AngleAxis(sightPeripheralHalfAngle, Vector3.up) * transform.forward;
         Vector3 lineRight = Quaternion.AngleAxis(-sightPeripheralHalfAngle, Vector3.up) * transform.forward;
         
-        Gizmos.DrawLine(transform.position + Vector3.up, transform.position + Vector3.up + lineLeft * sightRange);
-        Gizmos.DrawLine(transform.position + Vector3.up, transform.position + Vector3.up + lineRight * sightRange);
-
+        Gizmos.DrawLine(transform.position + Vector3.up, transform.position + Vector3.up + lineLeft * sightRange);    
+        Gizmos.DrawLine(transform.position + Vector3.up, transform.position + Vector3.up + lineRight * sightRange);    
     }
 }
