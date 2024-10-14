@@ -11,7 +11,7 @@ public class SightSense : Sense
 
         if (!transform.InAngleOf(stimuli.transform, sightPeripheralHalfAngle))
             return false;
-        
+
         if (transform.IsBlockedTo(stimuli.transform, Vector3.up, sightRange))
             return false;
         

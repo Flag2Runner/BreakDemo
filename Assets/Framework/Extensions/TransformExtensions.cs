@@ -25,7 +25,9 @@ public static class TransformExtensions
                 checkDistance))
         {
             if (hit.collider.gameObject != otherTransform.gameObject)
+            {
                 return true;
+            }
         }
 
         return false;

@@ -5,7 +5,6 @@ using UnityEngine;
 public abstract class Sense : MonoBehaviour
 {
     public delegate void OnSenseUpdatedDelegate(Stimuli stimuli, bool bWasSensed);
-
     public event OnSenseUpdatedDelegate OnSenseUpdated;
     
     [SerializeField] private bool bDrawDebug = true;
@@ -31,7 +30,7 @@ public abstract class Sense : MonoBehaviour
     {
         return false;
     }
-
+    
     private void Update()
     {
         foreach(Stimuli stimuli in _registeredStimuliSet)
@@ -66,7 +65,7 @@ public abstract class Sense : MonoBehaviour
         OnSenseUpdated?.Invoke(stimuli, false);
     }
 
-    protected void HandleSensibleStimuli(Stimuli stimuli)
+    public void HandleSensibleStimuli(Stimuli stimuli)
     {
         // we can sense it now, but we also can sense it before, nothing needs to be done
         if (_currentSensibleStimuliSet.Contains(stimuli))

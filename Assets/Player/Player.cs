@@ -6,18 +6,20 @@ using UnityEngine;
 [RequireComponent(typeof(SocketManager))]
 [RequireComponent(typeof(InventoryComponent))]
 [RequireComponent(typeof(HealthComponent))]
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, ITeamInterface, ICameraInterface
 {
     [SerializeField] private GameplayWidget gameplayWidgetPrefab;
     [SerializeField] private float speed = 10f;
     [SerializeField] private float bodyTurnSpeed = 10f;
     [SerializeField] private ViewCamera viewCameraPrefab;
     [SerializeField] private float animTurnLerpScale = 5f;
+    [SerializeField] private int teamID = 0;
     private GameplayWidget _gameplayWidget;
     
     private CharacterController _characterController;
     private ViewCamera _viewCamera;
     private InventoryComponent _inventoryComponent;
+    private HealthComponent _healthComponent;
      
     private Animator _animator;
     private float _animTurnSpeed;
@@ -30,6 +32,11 @@ public class Player : MonoBehaviour
     private static readonly int SwitchWeaponId = Animator.StringToHash("SwitchWeapon");
     private static readonly int FireId = Animator.StringToHash("Firing");
 
+    public int GetTeamID()
+    {
+        return teamID;
+    }
+
     private void Awake()
     {
         _characterController = GetComponent<CharacterController>();
@@ -39,8 +46,18 @@ public class Player : MonoBehaviour
         _gameplayWidget.MoveStick.OnInputUpdated += MoveInputUpdated;
         _gameplayWidget.AimStick.OnInputUpdated += AimInputUpdated;
         _gameplayWidget.AimStick.OnInputClicked += SwitchWeapon;
+        _gameplayWidget.SetOwner(gameObject);
         _viewCamera = Instantiate(viewCameraPrefab);
         _viewCamera.SetFollowParent(transform);
+        _healthComponent = GetComponent<HealthComponent>();
+        _healthComponent.OnDead += StartDeathSequence;
+    }
+
+    private void StartDeathSequence()
+    {
+        Debug.Log($"player dead");
+        _animator.SetTrigger("Dead");
+        _gameplayWidget.SetGameplayControlEnabled(false);
     }
 
     private void SwitchWeapon()
@@ -98,5 +115,10 @@ public class Player : MonoBehaviour
 
         _animator.SetFloat(animFwdId, animFwdAmt);
         _animator.SetFloat(animRightId, animRightAmt);
+    }
+
+    public Camera GetCamera()
+    {
+        return _viewCamera.GetViewCamera();
     }
 }

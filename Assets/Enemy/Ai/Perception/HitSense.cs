@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class HitSense : Sense
@@ -13,9 +14,8 @@ public class HitSense : Sense
 
     private void HandleDamageEvent(float newHealth, float delta, float maxHealth, GameObject instigator)
     {
-    
         Stimuli instigatorStimuli = instigator.GetComponent<Stimuli>();
         if(instigatorStimuli)
-            HandleSensibleStimuli(instigatorStimuli);
+            HandleSensibleStimuli(instigatorStimuli); 
     }
 }

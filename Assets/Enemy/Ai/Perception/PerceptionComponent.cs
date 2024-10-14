@@ -3,11 +3,10 @@ using UnityEngine;
 
 public class PerceptionComponent : MonoBehaviour
 {
-    public delegate void OnPerceptionTargetUpdatedDelegate(GameObject target, bool bIsSensed);
-
-    public event OnPerceptionTargetUpdatedDelegate OnPerceptionTargetUpdated;
+    public delegate void OnPerceptionTargetUpdatedDeletage(GameObject target, bool bIsSensed);
+    public event OnPerceptionTargetUpdatedDeletage OnPerceptionTargetUpdated;
     
-    private LinkedList<Stimuli> _currentSensedStimuliList = new();
+    private LinkedList<Stimuli> _currentSensedStimuliList = new LinkedList<Stimuli>();
     private Stimuli _currentTargetStimuli;
     
     private void Awake()
@@ -32,7 +31,6 @@ public class PerceptionComponent : MonoBehaviour
             {
                 _currentSensedStimuliList.AddLast(stimuli);
             }
-            
         }
         else
         {
@@ -43,14 +41,13 @@ public class PerceptionComponent : MonoBehaviour
         }
 
         DetermineTarget();
-
     }
 
     private void DetermineTarget()
     {
         if (_currentSensedStimuliList.Count == 0)
         {
-            if (_currentTargetStimuli)
+            if (_currentTargetStimuli != null)
             {
                 OnPerceptionTargetUpdated?.Invoke(_currentTargetStimuli.gameObject, false);
                 _currentTargetStimuli = null;
@@ -74,20 +71,34 @@ public class PerceptionComponent : MonoBehaviour
 
         Vector3 currentTargetStimuliLoc = _currentTargetStimuli.transform.position;
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(currentTargetStimuliLoc + Vector3.up, .7f);
+        Gizmos.DrawWireSphere(currentTargetStimuliLoc + Vector3.up, .7f); 
         Gizmos.DrawLine(transform.position + Vector3.up, currentTargetStimuliLoc + Vector3.up);
-        
-        Gizmos.color = Color.white;
 
-        foreach (Stimuli otherStimuli in _currentSensedStimuliList)
+        Gizmos.color = Color.white;
+        foreach(Stimuli otherStimuli in _currentSensedStimuliList)
         {
             if (otherStimuli == _currentTargetStimuli)
                 continue;
 
             Vector3 stimuliLoc = otherStimuli.transform.position;
-            Gizmos.DrawSphere(stimuliLoc + Vector3.up, 0.5f);
-            Gizmos.DrawLine(transform.position+ Vector3.up, stimuliLoc + Vector3.up);
+            Gizmos.DrawWireSphere(stimuliLoc + Vector3.up, 0.5f);
+            Gizmos.DrawLine(transform.position + Vector3.up, stimuliLoc + Vector3.up);
+        }
+    }
 
+    public GameObject GetCurrentTarget()
+    {
+        if (_currentTargetStimuli)
+            return _currentTargetStimuli.gameObject;
+        return null;
+    }
+
+    public void SetPerceivedStimuli(Stimuli ownerStimuli)
+    {
+        Sense sense = GetComponent<Sense>();
+        if (sense)
+        {
+            sense.HandleSensibleStimuli(ownerStimuli);
         }
     }
 }

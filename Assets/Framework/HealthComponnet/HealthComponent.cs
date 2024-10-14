@@ -4,13 +4,22 @@ using UnityEngine;
 public class HealthComponent : MonoBehaviour
 {
     public delegate void OnHealthChangedDelegate(float newHealth, float delta, float maxHealth, GameObject instigator);
-
     public event OnHealthChangedDelegate OnHealthChanged;
     public event OnHealthChangedDelegate OnTakenDamage;
     public event Action OnDead;
     
    [SerializeField] private float maxHealth = 100;
    private float _health;
+
+   public float GetHealth()
+   {
+       return _health;
+   }
+
+   public float GetMaxHealth()
+   {
+       return maxHealth;
+   }
    
    private void Awake()
    {
