@@ -82,7 +82,7 @@ MonoBehaviour:
   attachSocketName: Rifle
   overrideController: {fileID: 22100000, guid: 30e6cfc1f58da2e4f9ef649c0ada7e8a, type: 2}
   attackAnimSpeedMult: 1.5
-  damage: 50
+  damage: 10
   bulletVFX: {fileID: 4674674522793728775}
 --- !u!114 &6397932618567638695
 MonoBehaviour:
