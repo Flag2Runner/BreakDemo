@@ -8,6 +8,9 @@ public class AbilityDock : Widget, IPointerDownHandler, IPointerUpHandler
     [SerializeField] private AbilityWidget abilityWidgetPrefab;
     [SerializeField] private RectTransform rootPanel;
     [SerializeField] private float scaleRange = 150f;
+
+    [SerializeField] private float scaledSize = 1.5f;
+    [SerializeField] private float scaleRate = 20f;
     
     private List<AbilityWidget> _abilityWidgets = new List<AbilityWidget>();
     

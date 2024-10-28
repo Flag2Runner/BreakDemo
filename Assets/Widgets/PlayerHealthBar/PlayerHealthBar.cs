@@ -20,6 +20,6 @@ public class PlayerHealthBar : Widget
     private void UpdateHealth(float newHealth, float delta, float maxHealth, GameObject instigator)
     {
         healthBarImage.fillAmount = newHealth / maxHealth;
-        valueText.text = $"{newHealth}/{maxHealth}";
+        valueText.text = $"{newHealth:f0}/{maxHealth:f0}";
     }
 }

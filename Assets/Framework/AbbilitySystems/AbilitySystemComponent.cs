@@ -7,12 +7,32 @@ public class AbilitySystemComponent : MonoBehaviour
 {
     public delegate void OnAbilityGivenDelegate(Ability newAbility);
     public event OnAbilityGivenDelegate onAbilityGiven;
+
+    public delegate void OnManaUpdaedDelegate(float newMana, float delta, float maxMana);
+    public event OnManaUpdaedDelegate onManaUpdaed;
     
     [SerializeField] private float maxMana = 100f;
     [SerializeField] private Ability[] initialAbilities;
 
     private List<Ability> _abilities = new List<Ability>();
     private float _mana;
+
+    public float Mana
+    {
+        get => _mana;
+        private set => _mana = value;
+    }
+
+    public float MaxMana
+    {
+        get => maxMana;
+        private set => maxMana = value;
+    }
+
+    private void Awake()
+    {
+        _mana = maxMana;
+    }
 
     private void Start()
     {
@@ -21,6 +41,7 @@ public class AbilitySystemComponent : MonoBehaviour
         {
             GiveAbility(ability);
         }
+        //onManaUpdaed?.Invoke(_mana, maxMana, maxMana);
     }
 
     public void GiveAbility(Ability newAbility)
@@ -35,9 +56,12 @@ public class AbilitySystemComponent : MonoBehaviour
     public bool TryConsumeMana(float manaCost)
     {
         if (_mana < manaCost)
+        {
             return false;
+        }
 
         _mana -= manaCost;
+        onManaUpdaed?.Invoke(_mana, -manaCost, maxMana);
         return true;
     }
 }

@@ -9,6 +9,8 @@ public class AbilityWidget : MonoBehaviour
     [SerializeField] private RectTransform rootPanel;
     [SerializeField] private Image iconImage;
     [SerializeField] private Image cooldownImage;
+    [SerializeField] private Color canCastColor = Color.white;
+    [SerializeField] private Color cannotCastColor = Color.grey;
     [SerializeField] private float cooldownUpdateInterval = 0.05f;
 
     [SerializeField] private float scaleSize = 1.5f;
@@ -37,17 +39,17 @@ public class AbilityWidget : MonoBehaviour
     {
         rootPanel.transform.localScale = Vector3.Lerp(rootPanel.transform.localScale, _goalScale, Time.deltaTime * scaleRate);
         rootPanel.transform.localPosition = Vector3.Lerp(rootPanel.transform.localPosition, _goalLocalOffset, Time.deltaTime * scaleRate);
+        iconImage.color = _ability.CanCast() ? canCastColor : cannotCastColor;
         if (_dockRootPanel)
         {
             _dockRootPanel.transform.localScale = Vector3.Lerp(rootPanel.transform.localScale, _goalScale, Time.deltaTime * scaleRate);
-            _dockRootPanel.transform.localPosition = Vector3.Lerp(rootPanel.transform.localPosition, _goalLocalOffset, Time.deltaTime * scaleRate);
         }
 
     }
 
     internal void CastAbility()
     {
-        _ability.ActivateAbility();
+        _ability.TryActiveateAbility();
     }
 
     public void Init(Ability newAbility)
@@ -55,8 +57,16 @@ public class AbilityWidget : MonoBehaviour
         _ability = newAbility;
         if(_ability)
             _ability.OnAblityCooldownStarted += StartCooldown;
+        _ability.OnAbilityCanCastChanged += CanCastStateChanged;
         
         iconImage.sprite = _ability.GetAbilityIcon();
+        CanCastStateChanged(_ability.CanCast());
+
+    }
+
+    private void CanCastStateChanged(bool bCanCast)
+    {
+        iconImage.color = _ability.CanCast() ? canCastColor : cannotCastColor;
     }
 
     private void StartCooldown(float cooldownDuration)
