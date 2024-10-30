@@ -19,7 +19,7 @@ public class WidgetComponent : MonoBehaviour
             _widget.transform.SetParent(canvas.transform);
         }
 
-        _mainCamera = Camera.main;
+        _mainCamera = Camera.main; 
     }
 
     private void Update()

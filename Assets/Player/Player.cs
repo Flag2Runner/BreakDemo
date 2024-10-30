@@ -56,7 +56,7 @@ public class Player : MonoBehaviour, ITeamInterface, ICameraInterface
         _moveCompenent = GetComponent<MovementComponent>();
     }
 
-    private void StartDeathSequence()
+    private void StartDeathSequence(GameObject killer)
     {
         Debug.Log($"player dead");
         _animator.SetTrigger("Dead");

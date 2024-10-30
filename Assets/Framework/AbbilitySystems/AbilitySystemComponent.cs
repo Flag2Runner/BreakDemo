@@ -1,9 +1,7 @@
-using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class AbilitySystemComponent : MonoBehaviour
+public class AbilitySystemComponent : MonoBehaviour, iPurchaseListener
 {
     public delegate void OnAbilityGivenDelegate(Ability newAbility);
     public event OnAbilityGivenDelegate onAbilityGiven;
@@ -60,8 +58,24 @@ public class AbilitySystemComponent : MonoBehaviour
             return false;
         }
 
-        _mana -= manaCost;
-        onManaUpdaed?.Invoke(_mana, -manaCost, maxMana);
+        ChangeMana(-manaCost);
+        return true;
+    }
+
+    public void ChangeMana(float amt)
+    {
+        _mana += amt;
+        _mana = Mathf.Clamp(_mana, 0f, maxMana);
+        onManaUpdaed?.Invoke(_mana, amt, maxMana);
+    }
+
+    public bool handlePurchase(Object newPurchase)
+    {
+        Ability itemAsAbility = newPurchase as Ability;
+        if (itemAsAbility == null)
+            return false;
+
+        GiveAbility(itemAsAbility);
         return true;
     }
 }

@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 333906732661514324}
   - component: {fileID: 6039066497351890653}
   - component: {fileID: 5343613806957346627}
+  - component: {fileID: -2890652745650117762}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -264,6 +265,22 @@ MonoBehaviour:
   damagedColor: {r: 1, g: 0, b: 0, a: 0}
   damageColorDuration: 0.1
   damageColorMaterialParmName: _EmissionOffset
+--- !u!114 &-2890652745650117762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6002617223673246343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef69ee886986bfc49ab841622c46564d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rewards:
+  - {fileID: 11400000, guid: 54ac9da032bfe4c4c8e8de98091e7649, type: 2}
+  - {fileID: 11400000, guid: 4eb6307db95ee6b408a3bf770ca7befd, type: 2}
+  - {fileID: 11400000, guid: e4a6ba872103d0346bc0484cfcf5f001, type: 2}
 --- !u!1 &8910188923000649924
 GameObject:
   m_ObjectHideFlags: 0

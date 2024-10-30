@@ -13,7 +13,7 @@ public class HealthBar : ValueGauge
         }
     }
 
-    private void OwnerDead()
+    private void OwnerDead(GameObject killer)
     {
         Destroy(gameObject);
     }
